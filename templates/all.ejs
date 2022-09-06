@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mostra todos os dados</title>
+</head>
+<body>
+
+<h3>PAGINA COM TODOS OS DADOS DO SISITEMA</h3>
+<!-- link para acessar a pagina para adicionar dados -->
+<a href="/">ADICIONAR DADOS</a>
+
+<% for(let i=0; i< dados.length; i++){%>
+    <div id='<%=dados[i]._id%>'>
+        
+        <h1> <%=dados[i].title%> </h1>
+        <div> <%=dados[i].description%> </div>
+        <div> <%=dados[i].url%> </div>
+        <div> clicks: <%=dados[i].click%> </div> 
+        
+        <a href="/edit/<%=dados[i]._id%>">Editar</a>
+        <button onclick="removerEdeleta_Dado ('<%=dados[i]._id%>')" >Delete</button>
+    </div>
+<%}%>
+
+
+
+
+
+
+<script>
+
+    function removerEdeleta_Dado(id){
+        fetch('/'+id, { method: 'DELETE'}).then(res=>{
+            if (res.status == 200){
+                res.text().then(dadoId=>{
+                document.getElementById(dadoId).remove();
+                })
+            }else{
+                res.json().then(err=>{
+                    alert(err.message);
+                    console.log(err.message);
+                })
+            }  
+        })
+    }
+    
+</script>
+
+
+
+
+</body>
+</html>

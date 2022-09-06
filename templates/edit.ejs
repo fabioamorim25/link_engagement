@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>editar dados</title>
+</head>
+<body>
+    
+
+<h2>Pagina para editar dados do banco de dados</h2>
+
+<form action="/edit/<%=body.id%>" method="post">
+    <input class="field" name="title" placeholder="Title" required type="text">
+    <input class="field" name="description" placeholder="Description" required type="text"> 
+    <input class="field" name="url" placeholder="URL" required type="url">
+    <button>Editar</button>
+</form>
+
+
+
+
+</body>
+</html>

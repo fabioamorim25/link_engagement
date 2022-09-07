@@ -4,20 +4,20 @@ const controllerReq=require('../controllers/controllerReq')
 
 
 
-router.get('/all', controllerReq.todoDado);//rota para mostra todos os dados para o usuario
 
+//mostra pagina de add dados e executar a funcionalidade que adiciona os dados ao banco de dados---------------------------
+router.get('/add', (req,res)=>{//carregar a pagina para adicionar dados
+    res.render('add.ejs');  
+});
+router.post('/', express.urlencoded({extended:true}), controllerReq.addDado); //ROTA PARA ADICIONAR DADOS AO BANCO DE DADOS
+//-------------------------------------------------------------------------------------------------------------------------
+
+router.get('/', controllerReq.todoDado);//rota para mostra todos os dados para o usuario
 
 
 router.get('/:title', controllerReq.redirect);//rota para iniciar a funcionalidade de redirecionar
 
 
-
-//mostra pagina de add dados e executar a funcionalidade que adiciona os dados ao banco de dados---------------------------
-router.get('/', (req,res)=>{//carregar a pagina para adicionar dados
-    res.render('index.ejs');  
-});
-router.post('/', express.urlencoded({extended:true}), controllerReq.addDado); //ROTA PARA ADICIONAR DADOS AO BANCO DE DADOS
-//-------------------------------------------------------------------------------------------------------------------------
 
 
 

@@ -72,7 +72,7 @@ const addDado = async (req, res) => {
         res.redirect ('/');
         
     } catch (error) {
-        res.render('add.ejs', { error, body : req.body }); 
+        res.render('add.ejs', { error, body: req.body }); 
     }
 }
 

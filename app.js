@@ -29,9 +29,9 @@ app.set("views", path.join(__dirname, "templates"));
 app.set('views engine', 'ejs'); 
 //=========================================
 
+app.use(express.static(path.join(__dirname, '/images')))
 
 app.use('/',rotasGeral)
-
 
 
 

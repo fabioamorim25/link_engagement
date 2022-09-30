@@ -58,8 +58,8 @@ const deleteDado= async ( req,res )=>{
         id= req.body.id;
     }
     try {     
-       let deleta = await NomeColecao.findOneAndDelete(id);
-       res.send(id);
+       let deleta = await NomeColecao.findByIdAndDelete(id);
+       res.send(id)
     } catch (error) {
         res.status(404).send(error);
     }

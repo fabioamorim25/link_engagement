@@ -48,8 +48,8 @@
         fetch('/'+id, { method: 'DELETE'}).then(res=>{
             if (res.status == 200){
                 res.text().then(dadoId=>{
-                document.getElementById(dadoId).remove();    
-            })
+                document.getElementById(dadoId).remove();
+        })
             }else{
                 res.json().then(err=>{
                     alert(err.message);

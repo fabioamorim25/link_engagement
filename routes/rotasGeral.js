@@ -30,8 +30,7 @@ router.get('/edit/:id', controllerReq.loadDados); //rota que sera usada para ren
 
 
 
-router.delete('/:id', controllerReq.deleteDado);//rota delete 
-
+router.delete('/:id',express.urlencoded({extended: true}), controllerReq.deleteDado);//rota delete 
 
 
 

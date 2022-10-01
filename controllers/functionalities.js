@@ -1,4 +1,5 @@
-const NomeColecao=require('../modelGenerico/NomeColecao') 
+const NomeColecao=require('../modelGenerico/NomeColecao')
+
 
 //FUNCIONALIDADE PARA VER TODOS OS DADOS
 const todoDado= async (req,res)=>{

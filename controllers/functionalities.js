@@ -1,4 +1,5 @@
-const NomeColecao=require('../modelGenerico/NomeColecao')
+const NomeColecao=require('../modelGenerico/NomeColecao') 
+const {validateDados}= require ('./validate');//chamar a função de validação 
 
 
 //FUNCIONALIDADE PARA VER TODOS OS DADOS
@@ -34,6 +35,13 @@ const loadDados = async (req, res) => {
 }
 //FUNCIONALIDADE PARA EDITAR DADOS
 const editDado = async (req,res)=>{
+
+    //2°parte:chamar a validação dos dados-----------------
+    const {error} = validateDados(req.body);
+    if(error){
+        return res.status(400).send(error.message);
+    }//--------------------------------------------
+
     let documentoVazio ={};
     documentoVazio.title = req.body.title;
     documentoVazio.description = req.body.description;
@@ -67,6 +75,12 @@ const deleteDado= async ( req,res )=>{
 }
 //FUNCIONALIDADE PARA ADICIONAR DADOS 
 const addDado = async (req, res) => {
+    //3°parte:chamar a validação dos dados-----------------
+    const { error } = validateDados(req.body);
+    if (error) {
+        return res.status(400).send(error.message);
+    }//--------------------------------------------
+
     let nomeColecao =new NomeColecao (req.body)
     try {
         let doc =await nomeColecao.save()

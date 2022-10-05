@@ -1,3 +1,5 @@
+// ARQUIVO CONTEM TODAS AS FUNCIONALIDADES RELACIONADO AO CONTROLE DE VALIDAÇÃO DOS DADOS RECEBIDOS
+
 const joi = require('@hapi/joi');
 
 //1°parte: criar um documento generico com as caracterisicas que sera verificada se esta de acordo com as caracteristicas definidas

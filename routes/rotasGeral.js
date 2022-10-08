@@ -30,6 +30,8 @@ router.delete('/:id',express.urlencoded({extended: true}), controllerReq.deleteD
 //rota para adicionar um novo usuario
 router.post('/addUser', express.urlencoded({extended:true}), featuresUser.addUser);
 
+//rota para ver todos os usuarios registrados
+router.get('/', featuresUser.verUser)
 
 
 

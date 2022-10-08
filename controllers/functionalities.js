@@ -1,5 +1,3 @@
-// ARQUIVO CONTEM TODAS AS FUNCIONALIDADES RELACIONADO AO CONTROLE DO SISTEMA
-
 const NomeColecao=require('../modelGenerico/NomeColecao') 
 const {validateDados}= require ('./validate');//chamar a função de validação 
 

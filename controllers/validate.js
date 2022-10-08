@@ -1,10 +1,8 @@
-// ARQUIVO CONTEM TODAS AS FUNCIONALIDADES RELACIONADO AO CONTROLE DE VALIDAÇÃO DOS DADOS RECEBIDOS
-
 const joi = require('@hapi/joi');
 
-//1°parte: criar um documento generico com as caracterisicas que sera verificada se esta de acordo com as caracteristicas definidas
-const validateDados = (data) => {
+//criar um documento generico com as caracterisicas que sera verificada se esta de acordo com as caracteristicas definidas
 
+const validateDados = (data) => {
     const schema = joi.object({
         //Caracterisiticas dos dados
         title: joi.string().required().min(3).max(20),
@@ -15,8 +13,16 @@ const validateDados = (data) => {
     //validar os dados recebidos
     return schema.validate(data);
 }
+const validateUser = (data) => {
+    const schema = joi.object({
+        //Caracterisiticas dos dados
+        name: joi.string().required().min(3).max(15)
+    });
+
+    //validar os dados recebidos
+    return schema.validate(data);
+}
 
 
-
-//exportar a função de validação
-module.exports.validateDados = validateDados;
+//exportar as funçõe de validação
+module.exports = {validateDados,validateUser};

@@ -1,12 +1,14 @@
 const NomeColecao=require('../modelGenerico/NomeColecao') 
-const {validateDados}= require ('./validate');//chamar a função de validação 
-
+const {validateDados}= require ('./validate');
+const DocumentUser = require ('../modelGenerico/DocumentUser'); //[OBS:SISTEMA DO USUARIO]
 
 //FUNCIONALIDADE PARA VER TODOS OS DADOS
 const todoDado= async (req,res)=>{
     try { 
-        let dados = await NomeColecao.find({});
-        res.render('all.ejs', {dados});
+        let dados = await NomeColecao.find({});//pegar os documentos registrdos
+        let users = await DocumentUser.find({});//2°PARTE: ver os dados do usuario [OBS:SISTEMA DO USUARIO]
+        
+        res.render('all.ejs', {dados,users});//3°parte: passar a lista de usuarios para a pagina all.ejs[OBS:SISTEMA DO USUARIO]
     } catch (error) {
         res.status(404).send(error);
     }
@@ -21,8 +23,6 @@ const redirect = async (req, res) => {
         res.status(404).send(error); 
     }
 }
-
-//======================================================================
 //função que sera responsavel por recarregar a pagina [edit.ejs]
 const loadDados = async (req, res) => {
     let id = req.params.id;
@@ -36,7 +36,7 @@ const loadDados = async (req, res) => {
 //FUNCIONALIDADE PARA EDITAR DADOS
 const editDado = async (req,res)=>{
 
-    //2°parte:chamar a validação dos dados-----------------
+    //chamar a validação dos dados-----------------
     const {error} = validateDados(req.body);
     if(error){
         return res.status(400).send(error.message);
@@ -58,7 +58,6 @@ const editDado = async (req,res)=>{
         res.render('edit.ejs', {error, body:req.body });
     }
 }
-//======================================================================
 
 //FUNCIONALIDADE PARA APAGAR DADOS
 const deleteDado= async ( req,res )=>{
@@ -75,7 +74,7 @@ const deleteDado= async ( req,res )=>{
 }
 //FUNCIONALIDADE PARA ADICIONAR DADOS 
 const addDado = async (req, res) => {
-    //3°parte:chamar a validação dos dados-----------------
+    //chamar a validação dos dados-----------------
     const { error } = validateDados(req.body);
     if (error) {
         return res.status(400).send(error.message);
@@ -84,8 +83,7 @@ const addDado = async (req, res) => {
     let nomeColecao =new NomeColecao (req.body)
     try {
         let doc =await nomeColecao.save()
-        res.redirect ('/');
-        
+        res.redirect ('/'); 
     } catch (error) {
         res.render('add.ejs', { error, body: req.body }); 
     }

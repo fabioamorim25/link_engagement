@@ -9,31 +9,60 @@
     <title>Lista de dados</title>
 </head>
 <body class="bg-light">
-    
-    <!-- colocar aqui o tamplete do cabeçalho [navbar.ejs] -->
-    <%- include('partials/navbar.ejs')%>
+  <!--3°PARTE: ESTRUTURA NAVBAR COM OFFCANVAS------------------------------------------------------------------------------- -->
+    <header class="navbar navbar-dark bg-primary">
+        <div class="navbar">
+            <button class="btn btn-primary navbar-toggler-icon mx-2" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasScrolling"></button>
+            <div class="navbar-brand fw-bold">Link Engagement</div>
+        </div>
+       
+        <div class="offcanvas offcanvas-start" id="offcanvasScrolling">
+            <div class="offcanvas-header">
+                <h5>MENU DOS USUARIOS</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body">
+                <!--ADICIONAR NOVOS USUARIOS----------------------------------->
+                <div class="container">
+                    <form class="d-flex" action="/addUser" method="post"> <!--assim que adicionar um nome sera enviado um post para a rota /addUser que ira adicionar o nome enviado-->
+                        <input class="input-group-text flex-fill" name="name" placeholder="Adicionar novo usuario"/>
+                        <button class="btn btn-primary flex-fill">salvar</button>
+                    </form>
+                </div>
+                <!--5°PARTEA: VER USUARIOS JÁ CADASTRADOS---------->
+                <% for(let i=0; i<users.length; i++){%><!--listra todos os usuarios-->
+                    <div id='<%= users[i]._id%>'>
+                        <h5 class=""><%=users[i].name%></h5><!--selecionar a caracteristica (name) que tem no documento generico [DocumentUser.js] e (users) que foi definido em [functionalities.js na linha 9]  -->
+                    </div>
+                <%}%>
+            </div>
+        </div>
+        <div class="nav">
+            <a class="nav-link m-1 btn-sm text-dark" href="/add">Adicionar dados</a>
+            <a class="nav-link m-1 btn-sm text-dark" href="/">Lista de dados</a>
+        </div>
+    </header>
+  <!------------------------------------------------------------------------------------------------------------------->
 
     <h3 class="mt-5 text-center fw-bold">LISTA COM TODOS OS DADOS DO SISTEMA</h3>
-
     <main class="container d-flex flex-wrap ">
         <% for(let i=0; i< dados.length; i++){%>
-            <div class="card bg-dark m-1 p-4" style="width: 250px"><%dados[i]._id%>
-                        <div class="d-flex flex-column">
-                            <h1 class="text-muted fw-bold"><%=dados[i].title%></h1>
-                            <div class="text-white"><%=dados[i].description%></div>
-                            <div class="text-white"><%=dados[i].url%></div>
-                            <div class="text-info"> Clicks: <%=dados[i].click%></div>
-                        </div>
+            <div class="card bg-dark m-1 p-4" style="width:250px"><%dados[i]._id%>
+                <div class="d-flex flex-column">
+                    <h1 class="text-muted fw-bold"><%=dados[i].title%></h1>
+                    <div class="text-white"><%=dados[i].description%></div>
+                    <div class="text-white"><%=dados[i].url%></div>
+                    <div class="text-info"> Clicks: <%=dados[i].click%></div>
                 </div>
             </div>
         <%}%>
     </main>
 
      <!-- colocar aqui o tamplete do rodapé [footer.ejs] -->
-     <%- include('partials/footer.ejs')%>
-
-</body >
-
+    <%- include('partials/footer.ejs')%>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 <script>
 

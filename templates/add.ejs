@@ -11,7 +11,7 @@
 
 <body class="bg-light">
     
-<main >
+<main>
 
     <!-- colocar aqui o tamplete do cabeçalho [navbar.ejs] -->
     <%- include('partials/navbar.ejs')%>
@@ -22,7 +22,7 @@
         <form class=" d-flex flex-column" action="/" method="post">
             <input class="mb-3 mt-3" name="title" placeholder="Title">
             <input class="mb-3 pb-5" name="description" placeholder="Description">
-            <input class="mb-3" name="url" placeholder="URL">
+            <input class="mb-3" name="url" placeholder="URL" type="url">
 
             <button class="btn btn-primary mb-5">salvar</button>
         </form>

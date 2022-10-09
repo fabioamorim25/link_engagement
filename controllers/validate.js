@@ -1,7 +1,5 @@
 const joi = require('@hapi/joi');
 
-//criar um documento generico com as caracterisicas que sera verificada se esta de acordo com as caracteristicas definidas
-
 const validateDados = (data) => {
     const schema = joi.object({
         //Caracterisiticas dos dados
@@ -9,20 +7,16 @@ const validateDados = (data) => {
         description: joi.string().required().max(200),
         url: joi.string().required()
     });
-
-    //validar os dados recebidos
-    return schema.validate(data);
+    return schema.validate(data);//validar os dados recebidos
 }
 const validateUser = (data) => {
     const schema = joi.object({
         //Caracterisiticas dos dados
         name: joi.string().required().min(3).max(15)
     });
-
-    //validar os dados recebidos
-    return schema.validate(data);
+    return schema.validate(data);//validar os dados recebidos
 }
 
 
-//exportar as funçõe de validação
+
 module.exports = {validateDados,validateUser};

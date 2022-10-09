@@ -25,14 +25,10 @@ const addUser = async (req, res) => {
         res.render({ error, body: req.body }); 
     }
 }
-//FUNCIONALIDADE PARA VER TODOS OS USUARIOS REGISTRADOS
-const verUser= async (req,res)=>{
-    try { 
-        let dadoUser = await DocumentUser.find({});
-        res.render('all.ejs', {dadoUser});
-    } catch (error) {
-        res.status(404).send(error);
-    }
-}
 
-module.exports= {addUser, verUser};//exportar a funcionalidade 
+
+
+
+
+
+module.exports= {addUser};//exportar a funcionalidade 

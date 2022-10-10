@@ -6,9 +6,9 @@ const DocumentUser = require ('../modelGenerico/DocumentUser'); //[OBS:SISTEMA D
 const todoDado= async (req,res)=>{
     try { 
         let dados = await NomeColecao.find({});//pegar os documentos registrdos
-        let users = await DocumentUser.find({});//2°PARTE: ver os dados do usuario [OBS:SISTEMA DO USUARIO]
+        let users = await DocumentUser.find({});
         
-        res.render('all.ejs', {dados,users});//3°parte: passar a lista de usuarios para a pagina all.ejs[OBS:SISTEMA DO USUARIO]
+        res.render('all.ejs', {dados,users});//[OBS:SISTEMA DO USUARIO]
     } catch (error) {
         res.status(404).send(error);
     }
@@ -83,7 +83,8 @@ const addDado = async (req, res) => {
     let nomeColecao =new NomeColecao (req.body)
     try {
         let doc =await nomeColecao.save()
-        res.redirect ('/'); 
+        res.redirect ('/');
+        
     } catch (error) {
         res.render('add.ejs', { error, body: req.body }); 
     }

@@ -5,21 +5,19 @@ const featuresUser = require ('../controllers/featuresUser'); //importar o arqui
 
 
 //ROTAS PARA AS FUNCIONALIDADES DAS AÇÕES DO SISTEMA
-
 router.get('/add', (req,res)=>{
     res.render('add.ejs');  
 });
 router.post('/', express.urlencoded({extended:true}), controllerReq.addDado);
-//-------------------------------------------------------------------------------------------------------------------------
-router.get('/', controllerReq.todoDado);//4° parte: rota para mostra todos os documentos do sistema e mostra todos os usuarios registrados
+
+router.get('/', controllerReq.todoDado);
 router.get('/:title', controllerReq.redirect);
 
-//-------------------------------------------------------------------------------------
+
 router.post('/edit/:id', express.urlencoded({extended: true}), controllerReq.editDado);
 router.get('/edit/:id', controllerReq.loadDados); 
-//-------------------------------------------------------------------------------------
 
-router.delete('/:id',express.urlencoded({extended: true}), controllerReq.deleteDado); 
+router.delete('/:id',express.urlencoded({extended: true}), controllerReq.deleteDado);
 
 
 //ROTAS PARA AS FUNCIONALIDADES DO USUARIO

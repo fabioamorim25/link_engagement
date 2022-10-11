@@ -6,9 +6,9 @@ const DocumentUser = require ('../modelGenerico/DocumentUser'); //[OBS:SISTEMA D
 const todoDado= async (req,res)=>{
     try { 
         let dados = await NomeColecao.find({});//pegar os documentos registrdos
-        let users = await DocumentUser.find({});
+        let users = await DocumentUser.find({});//ver os dados do usuario [OBS:SISTEMA DO USUARIO]
         
-        res.render('all.ejs', {dados,users});//[OBS:SISTEMA DO USUARIO]
+        res.render('all.ejs', {dados,users});//passar a lista de usuarios para a pagina all.ejs[OBS:SISTEMA DO USUARIO]
     } catch (error) {
         res.status(404).send(error);
     }
@@ -23,6 +23,7 @@ const redirect = async (req, res) => {
         res.status(404).send(error); 
     }
 }
+//======================================================================
 //função que sera responsavel por recarregar a pagina [edit.ejs]
 const loadDados = async (req, res) => {
     let id = req.params.id;
@@ -58,6 +59,7 @@ const editDado = async (req,res)=>{
         res.render('edit.ejs', {error, body:req.body });
     }
 }
+//======================================================================
 
 //FUNCIONALIDADE PARA APAGAR DADOS
 const deleteDado= async ( req,res )=>{

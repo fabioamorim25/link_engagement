@@ -17,14 +17,15 @@ router.get('/:title', controllerReq.redirect);
 router.post('/edit/:id', express.urlencoded({extended: true}), controllerReq.editDado);
 router.get('/edit/:id', controllerReq.loadDados); 
 
-router.delete('/:id',express.urlencoded({extended: true}), controllerReq.deleteDado);
+
+router.delete('/:id',express.urlencoded({extended: true}), controllerReq.deleteDado);//rota delete 
 
 
 //ROTAS PARA AS FUNCIONALIDADES DO USUARIO
 //rota para adicionar um novo usuario
 router.post('/addUser', express.urlencoded({extended:true}), featuresUser.addUser);
 
-
-
+//2°PARTE: rota para entra no menu do usuario apartir do id 
+router.get('/listAll/:id', featuresUser.loadUser);
 
 module.exports= router; 

@@ -7,4 +7,4 @@ const moldeGenericoUser= new mongoose.Schema({
 
 
  
-module.exports= mongoose.model('DocumentUser', moldeGenericoUser);
+module.exports= mongoose.model('DocumentUser', moldeGenericoUser);//3°parte pegar o modelo do documento do usuario. sera usada para auxiliar no processo de mostra todos os usuarios na tela

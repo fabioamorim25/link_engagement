@@ -30,8 +30,8 @@
                     </form>
                     <!--VER USUARIOS JÁ CADASTRADOS--------------------------------------->
                     <% for(let i=0; i<users.length; i++){%>
-                        <div class="btn btn-secondary mt-2 p-1 d-block" id='<%= users[i]._id%>'>
-                            <!-- 1°: ACESSAR A ROTA PARA VER A PAGINA DO USUARIO APARTIR DO ID DO USUARIO -->
+                        <div class="btn btn-secondary mt-3 d-block" id='<%= users[i]._id%>'>
+                            <!--ACESSAR A ROTA PARA VER A PAGINA DO USUARIO APARTIR DO ID DO USUARIO -->
                             <a href="/listAll/<%=users[i]._id%>" class="text-capitalize text-decoration-none text-white"><%=users[i].name%></a>
                         </div>
                     <%}%>

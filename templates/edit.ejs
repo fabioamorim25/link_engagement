@@ -14,6 +14,7 @@
     <h3 class="text-center fw-bold">EDITAR DADO DO BANCO DE DADOS</h3>
     <div class="container w-50">
         <form class=" d-flex flex-column" action="/edit/<%=body.id%>" method="post">
+            <input class="mb-3 mt-2" name="user" placeholder="Usuário" required type="text">
             <input class="mb-3 mt-2" name="title" placeholder="Title" required type="text">
             <input class="mb-3 pb-5" name="description" placeholder="Description" required type="text">
             <input class="mb-3" name="url" placeholder="URL" required type="url">

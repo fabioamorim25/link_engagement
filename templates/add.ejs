@@ -9,17 +9,18 @@
     <title>adicionar dado</title>
 </head>
 
-<body class="bg-light">
+<body style="background-color: black;">
     
 <main>
 
     <!-- colocar aqui o tamplete do cabeçalho [navbar.ejs] -->
     <%- include('partials/navbar.ejs')%>
 
-    <h3 class="text-center fw-bold mt-5">ADICIONAR NOVO DADO AO BANCO DE DADOS</h3>
+    <h3 class="text-center fw-bold mt-5 fw-bold text-white">ADICIONAR NOVO DADO AO BANCO DE DADOS</h3>
     <div class="container w-50">
 
         <form class=" d-flex flex-column" action="/" method="post">
+            <input class="mb-3 mt-2" name="user" placeholder="Usuário" type="text">
             <input class="mb-3 mt-3" name="title" placeholder="Title">
             <input class="mb-3 pb-5" name="description" placeholder="Description">
             <input class="mb-3" name="url" placeholder="URL" type="url">

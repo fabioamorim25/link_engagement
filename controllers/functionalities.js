@@ -44,6 +44,7 @@ const editDado = async (req,res)=>{
     }//--------------------------------------------
 
     let documentoVazio ={};
+    documentoVazio.user = req.body.user;
     documentoVazio.title = req.body.title;
     documentoVazio.description = req.body.description;
     documentoVazio.url = req.body.url;

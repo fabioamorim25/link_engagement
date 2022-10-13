@@ -5,6 +5,7 @@ const joi = require('@hapi/joi');
 const validateDados = (data) => {
     const schema = joi.object({
         //Caracterisiticas dos dados
+        user: joi.string().required().min(3).max(20),
         title: joi.string().required().min(3).max(20),
         description: joi.string().required().max(200),
         url: joi.string().required()

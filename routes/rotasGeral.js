@@ -25,8 +25,7 @@ router.delete('/:id',express.urlencoded({extended: true}), controllerReq.deleteD
 //rota para adicionar um novo usuario
 router.post('/addUser', express.urlencoded({extended:true}), featuresUser.addUser);
 
-//ao ser clicado em um dos usuarios sera iniciado a rota abaixo
-//1° PARTE: ROTA PARA ENTRA NA PAGINA MENU DO USUARIO APARTIR DO ID RECEBIDO (antes de mostra o menu sera direcinado para a função loadUser) 
+//rota para entra no menu do usuario apartir do id 
 router.get('/listAll/:id', featuresUser.loadUser);
 
 module.exports= router; 

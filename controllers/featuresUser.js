@@ -1,6 +1,6 @@
 const DocumentUser = require ('../modelGenerico/DocumentUser');
 const NomeColecao=require('../modelGenerico/NomeColecao') 
-const {validateUser}= require ('./validate');//chamar a função de validação do nome do usuario
+const {validateUser,validateDados}= require ('./validate');//chamar a função de validação do nome do usuario
 
 //FUNCIONALIDADE PARA ADICIONAR DADOS 
 const addUser = async (req, res) => {
@@ -44,8 +44,58 @@ const loadUser = async (req, res) =>{
 }
 
 
+//FUNCIONALIDADE PARA EDITAR DADOS
+const editDado = async (req,res)=>{
+
+    //chamar a validação dos dados-----------------
+    const {error} = validateDados(req.body);
+    if(error){
+        return res.status(400).send(error.message);
+    }//--------------------------------------------
+    //1° parte: validar se o titulo do dado já existe--------------------------------------------------------------------------------
+    const selectedUser = await NomeColecao.findOne({title: req.body.title});
+    if (selectedUser){
+        return res.status(400).send("O titulo já existe");//[DEVE SER MELHORAR A ENTREGA DA MENSAGEM NO FRONT NAS PROXIMA ATUALIZAÇÃO]
+    }
+    //--------------------------------------------------------------------------------------------------------------------------------
+    let documentoVazio ={};
+    documentoVazio.user = req.body.user;
+    documentoVazio.title = req.body.title;
+    documentoVazio.description = req.body.description;
+    documentoVazio.url = req.body.url;
+    
+    let id =req.params.id;
+    if(!id){
+        id= req.body.id;
+    }
+    try{
+        let doc= await NomeColecao.updateOne({_id: id}, documentoVazio);
+        res.redirect('/');
+    }catch (error){
+        res.render('edit.ejs', {error, body:req.body });
+    }
+}
+//======================================================================
+//FUNCIONALIDADE PARA APAGAR DOCUMENTO DO USUARIO
+const deleteDado= async ( req,res )=>{
+    //pegar o id do documento
+    let id = req.params.id;
+    if (!id){
+        id= req.body.id;
+    }
+    try {     
+        //deletar o documento que possui o id selecionado
+       let deleta = await NomeColecao.findByIdAndDelete(id);
+       res.redirect('/')
+        //[OBS: ALTERAR O CODIGO PARA ASSIM QUE DELETAR O DOCUMENTO SELECIONADO SERA REDIRECIONADO PARA A PAFINA DO USUARIO QUE FOI APAGADO O DOCUMENTO]
+    } catch (error) {
+        res.status(404).send(error);
+    }
+}
 
 
 
 
-module.exports= {addUser, loadUser};//exportar a funcionalidade 
+
+
+module.exports= {addUser, loadUser,editDado,deleteDado};//exportar a funcionalidade 

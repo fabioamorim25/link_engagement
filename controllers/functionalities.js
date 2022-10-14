@@ -34,47 +34,6 @@ const loadDados = async (req, res) => {
         res.status(404).send(error); 
     }
 }
-//FUNCIONALIDADE PARA EDITAR DADOS
-const editDado = async (req,res)=>{
-
-    //chamar a validação dos dados-----------------
-    const {error} = validateDados(req.body);
-    if(error){
-        return res.status(400).send(error.message);
-    }//--------------------------------------------
-
-    let documentoVazio ={};
-    documentoVazio.user = req.body.user;
-    documentoVazio.title = req.body.title;
-    documentoVazio.description = req.body.description;
-    documentoVazio.url = req.body.url;
-    
-    let id =req.params.id;
-    if(!id){
-        id= req.body.id;
-    }
-    try{
-        let doc= await NomeColecao.updateOne({_id: id}, documentoVazio);
-        res.redirect('/');
-    }catch (error){
-        res.render('edit.ejs', {error, body:req.body });
-    }
-}
-//======================================================================
-
-//FUNCIONALIDADE PARA APAGAR DADOS
-const deleteDado= async ( req,res )=>{
-    let id = req.params.id;
-    if (!id){
-        id= req.body.id;
-    }
-    try {     
-       let deleta = await NomeColecao.findByIdAndDelete(id);
-       res.send(id)
-    } catch (error) {
-        res.status(404).send(error);
-    }
-}
 //FUNCIONALIDADE PARA ADICIONAR DADOS 
 const addDado = async (req, res) => {
     //chamar a validação dos dados-----------------
@@ -93,4 +52,4 @@ const addDado = async (req, res) => {
     }
 }
 
-module.exports={todoDado, redirect, loadDados, editDado, deleteDado, addDado};//exportar a funcionalidade 
+module.exports={todoDado, redirect, loadDados, addDado};//exportar a funcionalidade 

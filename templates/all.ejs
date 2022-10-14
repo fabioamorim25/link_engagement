@@ -10,7 +10,7 @@
 </head>
 <body style="background-color: black;">
   <!--ESTRUTURA NAVBAR COM OFFCANVAS------------------------------------------------------------------------------- -->
-    <header class="navbar navbar-dark" style="background-color: rgb(46, 252, 5);">
+    <header class="navbar navbar-dark" style="background-color: rgba(46, 252, 5, 0.822);">
         <div class="navbar">
             <button class="btn btn-dark navbar-toggler-icon mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"></button>
             <div class="navbar-brand fw-bold text-dark">Link Engagement</div>
@@ -48,9 +48,9 @@
     <h3 class="m-5 text-center fw-bold text-white">LISTA COM TODOS OS DADOS DO SISTEMA</h3>
     <main class="container d-flex flex-wrap">
         <% for(let i=0; i< dados.length; i++){%>
-            <div class="card m-1 p-4" style="width:260px; background-color: rgba(26, 25, 25, 0.993);"><%dados[i]._id%>
+            <div class="card m-1 p-4" style="width:275px; background-color: rgba(26, 25, 25, 0.993);"><%dados[i]._id%>
                 <div class="flex-column">
-                    <h1 class="text-light fw-bold text-capitalize fst-italic"><%=dados[i].title%></h1>
+                    <h3 class="text-light fw-bold text-capitalize fst-italic text-center"><%=dados[i].title%></h3>
                     <div class="text-white text-capitalize"><%=dados[i].description%></div>
                     <div class="text-white"><%=dados[i].url%></div>
                     <div class="text-success"> Clicks: <%=dados[i].click%></div>

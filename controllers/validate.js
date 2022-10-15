@@ -5,6 +5,17 @@ const joi = require('@hapi/joi');
 const validateDados = (data) => {
     const schema = joi.object({
         //Caracterisiticas dos dados
+        title: joi.string().required().min(3).max(20),
+        description: joi.string().required().max(200),
+        url: joi.string().required()
+    });
+
+    //validar os dados recebidos
+    return schema.validate(data);
+}
+const validateDadoUser = (data) => {
+    const schema = joi.object({
+        //Caracterisiticas dos dados
         user: joi.string().required().min(3).max(20),
         title: joi.string().required().min(3).max(20),
         description: joi.string().required().max(200),
@@ -26,4 +37,4 @@ const validateUser = (data) => {
 
 
 //exportar as funçõe de validação
-module.exports = {validateDados,validateUser};
+module.exports = {validateDadoUser,validateDados,validateUser};

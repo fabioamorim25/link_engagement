@@ -31,7 +31,6 @@ const loadUser = async (req, res) =>{
    
     try{
         let doc = await DocumentUser.findById(id);//[findById(id)] é usada para recuperar o documento que corresponde ao 'id'. onde [documentUser] é o modelo do documento a ser selecionado
-     
         //DADOS DO MENU
         let name= doc.name; //vai pegar apenas o nome do usuario que esta no documento
         let docs = await NomeColecao.find({user:name});// lista com todos os documentos que o usuario possui o nome

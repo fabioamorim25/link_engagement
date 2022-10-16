@@ -47,7 +47,7 @@ const addDado = async (req, res) => {
     }
     //-----------------------------------------------
     //validar se o usuario do documento existe---------
-    const validateUser = await DocumentUser.findOne({name: req.body.name});
+    const validateUser = await DocumentUser.findOne({name: req.params.name});
     if (!validateUser){
         return res.status(400).send("O usuario digitado não existe. Deve ser criado o usuario antes");
     }

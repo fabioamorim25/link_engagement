@@ -13,6 +13,7 @@ const validateDados = (data) => {
     //validar os dados recebidos
     return schema.validate(data);
 }
+//Funcionalidade para verificar os dados digitados para a criação do documento 
 const validateDadoUser = (data) => {
     const schema = joi.object({
         //Caracterisiticas dos dados

@@ -15,10 +15,10 @@
 
 <main >
     <h3 class="text-center fw-bold text-white mt-5">EDITAR DADO DO BANCO DE DADOS</h3>
-    <div class="container w-50">
+    <div class="container w-75">
         <form class=" d-flex flex-column" action="/edit/<%=body.id%>" method="post">
-            <input class="mb-2  form-control" name="title" placeholder="Title (ex: usuario+nome do site)" required type="text">
-            <input class="mb-2 pb-5 form-control" name="description" placeholder="Description" required type="text">
+            <input class="mb-2  form-control" name="title" placeholder="Título (usuario+nome do site)" required type="text">
+            <input class="mb-2 pb-5 form-control" name="description" placeholder="Descrição do site" required type="text">
             <input class="mb-3 form-control" name="url" placeholder="URL" required type="url">
             <button class="btn" style="background-color: rgba(46, 252, 5, 0.822);">Editar</button>
         </form>

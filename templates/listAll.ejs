@@ -16,22 +16,22 @@
 
 
   <!-- ESTRUTURA DO MENU DINAMICO DO USUARIO -->
-  <h1 class="m-5 fw-bold text-capitalize text-white"><%=name%></h1>  
+  <h1 class="m-4 fw-bold text-uppercase text-white"><%=name%></h1>  
 
   <!--MOSTRA TODOS OS DOCUMENTOS QUE O USUARIO POSSUI -->
-  <main class="container d-flex">
+  <main class="d-flex flex-wrap">
     <% for(let i=0; i< docs.length; i++){%>
-        <div id="<%docs[i]._id%>" class="card p-1 m-2 " style="width:350px; background-color: rgba(26, 25, 25, 0.993);">
+        <div id="<%docs[i]._id%>" class="card border-success text-primary m-1" style="min-width: 20rem; background-color: rgba(26, 25, 25, 0.993);">
       <form method="POST" action="/<%=docs[i]._id%>?_method=DELETE">
-            <div class="flex-column">
-                <h2 class="text-light fw-bold text-capitalize fst-italic text-center"><%=docs[i].title%></h2>
-                <div class="text-white text-capitalize px-3"><%=docs[i].description%></div>
-                <div class="text-white px-3"><%=docs[i].url%></div>
-                <div class="text-success px-3"> Clicks: <%=docs[i].click%></div>
+            <div class="flex-column card-body">
+                <h2 class="card-title text-light fw-bold fst-italic text-center"><%=docs[i].title%></h2>
+                <div class="text-white text-capitalize card-text"><%=docs[i].description%></div>
+                <div class="text-white card-text"><%=docs[i].url%></div>
+                <div class="text-success card-text"> Clicks: <%=docs[i].click%></div>
             </div>
-            <div class="d-flex flex-column">
-                <a class="m-2 btn btn-primary" href="/edit/<%=docs[i]._id%>">Editar</a>
-                <button class="m-2 btn btn-danger" type="submit">Delete</button>
+            <div class="card-footer bg-transparent border-success text-center">
+                <a class="btn text-primary px-4" href="/edit/<%=docs[i]._id%>">Editar</a>
+                <button class="btn text-danger px-5" type="submit">Delete</button>
             </div>
         </div>
      </form>

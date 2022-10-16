@@ -17,14 +17,13 @@
     <%- include('partials/navbar.ejs')%>
 
     <h3 class="text-center fw-bold mt-5 fw-bold text-white">ADICIONAR NOVO DADO AO BANCO DE DADOS</h3>
-    <div class="container w-50">
+    <div class="container w-75">
 
         <form class=" d-flex flex-column" action="/" method="post">
             <input class="mb-2 mt-2 form-control" name="user" placeholder="Usuário" type="text">
-            <input class="mb-2  form-control" name="title" placeholder="Title (ex: usuario+nome do site)">
-            <input class="mb-2 pb-5 form-control" name="description" placeholder="Description">
+            <input class="mb-2  form-control" name="title" placeholder="Título (usuario+nome do site)">
+            <input class="mb-2 pb-5 form-control" name="description" placeholder="Descrição do site">
             <input class="mb-3 form-control" name="url" placeholder="URL" type="url">
-
             <button class="btn mb-5" style="background-color: rgba(46, 252, 5, 0.822);">salvar</button>
         </form>
     </div>

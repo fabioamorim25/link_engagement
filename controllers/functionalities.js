@@ -1,4 +1,4 @@
-const NomeColecao=require('../modelGenerico/NomeColecao') 
+const NomeColecao= require('../modelGenerico/NomeColecao') 
 const {validateDadoUser}= require ('./validate');
 const DocumentUser = require ('../modelGenerico/DocumentUser'); //[OBS:SISTEMA DO USUARIO]
 
@@ -10,7 +10,9 @@ const todoDado= async (req,res)=>{
         
         res.render('all.ejs', {dados,users});//passar a lista de usuarios para a pagina all.ejs[OBS:SISTEMA DO USUARIO]
     } catch (error) {
-        res.status(404).send(error);
+        let message = error;
+        let status = 404;
+        res.status(404).render('error.ejs', {message,status}); //redirecionar para a pagina de error
     }
 }
 //FUNCIONALIDADE PARA REDIRECIONAR PARA O DOCUMENTO 
@@ -20,7 +22,9 @@ const redirect = async (req, res) => {
         let doc = await NomeColecao.findOneAndUpdate({ title }, { $inc:{ click:1 } });
         res.redirect(doc.url)
     } catch (error) {
-        res.status(404).send(error); 
+        let message = error;
+        let status = 404;
+        res.status(404).render('error.ejs', {message,status}); //redirecionar para a pagina de error
     }
 }
 //função responsavel por recarregar a pagina [edit.ejs]
@@ -30,7 +34,9 @@ const loadDados = async (req, res) => {
         let doc = await NomeColecao.findById(id);
         res.render('./edit.ejs', {error: false ,body: doc})
     } catch (error) {
-        res.status(404).send(error); 
+        let message = error;
+        let status = 404;
+        res.status(404).render('error.ejs',{message,status}); //redirecionar para a pagina de error 
     }
 }
 //FUNCIONALIDADE PARA ADICIONAR DOCUMENTOS 
@@ -38,18 +44,21 @@ const addDado = async (req, res) => {
     //chamar a validação dos dados-----------------
     const { error } = validateDadoUser(req.body);
     if (error) {
-        return res.status(400).send(error.message);
+        return res.status(400).render('add.ejs',{error});
     }//--------------------------------------------
     //validar se o documento já existe---------
     const selectedDoc = await NomeColecao.findOne({title: req.body.title});
     if (selectedDoc){
-        return res.status(400).send("O titulo do documento já existe");
+        let message = "O titulo do documento já existe";
+        return res.status(400).render('error.ejs',{message,status});//redirecionar para a pagina de error
     }
     //-----------------------------------------------
     //validar se o usuario do documento existe---------
-    const validateUser = await DocumentUser.findOne({name: req.params.name});
-    if (!validateUser){
-        return res.status(400).send("O usuario digitado não existe. Deve ser criado o usuario antes");
+    const validateUser = await DocumentUser.findOne({name: req.body.user});//pegar o nome do user recebido do front e colocar seu valor na chave name que corresponde a caracteristica do DocumentUser.js
+    if (!validateUser){//se não existir vai da erro
+        let message = "O usuario digitado não existe. Deve ser criado o usuario antes";
+        let status = 400;
+        return res.status(400).render('error.ejs',{message,status});//redirecionar para a pagina de error
     }
     //-----------------------------------------------
 

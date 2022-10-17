@@ -7,9 +7,9 @@ const featuresUser = require ('../controllers/featuresUser'); //importar o arqui
 router.use(methodOverride('_method'));//o methodOverride foi selecionado para a rota de deletar dados do usuario 
 
 
-//ROTAS PARA AS FUNCIONALIDADES DAS AÇÕES DO SISTEMA
+//ROTAS PARA AS FUNCIONALIDADES DAS AÇÕES DO SISTEMA__________________________________
 router.get('/add', (req,res)=>{
-    res.render('add.ejs');  
+    res.render('add.ejs',{error:false,message:false});  
 });
 router.post('/', express.urlencoded({extended:true}), controllerReq.addDado);
 
@@ -20,7 +20,7 @@ router.get('/edit/:id', controllerReq.loadDados);
 
 
 
-//ROTAS PARA AS FUNCIONALIDADES DO USUARIO
+//ROTAS PARA AS FUNCIONALIDADES DO USUARIO____________________________________________
 
 //rota para adicionar um novo usuario
 router.post('/addUser', express.urlencoded({extended:true}), featuresUser.addUser);

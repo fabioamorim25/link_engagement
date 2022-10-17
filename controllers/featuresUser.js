@@ -7,16 +7,12 @@ const addUser = async (req, res) => {
     //validar os dado do input nome do novo usuario--
     const { error } = validateUser(req.body);
     if (error) {
-        let message = error;
-        let status = 400;
-        return res.status(400).render('error.ejs',{message,status});//redirecionar para a pagina de error
+        return res.status(400).send(error.message);//[DEVE SER MELHORAR A ENTREGA DA MENSAGEM NO FRONT NAS PROXIMA ATUALIZAÇÃO]
     }   
     //validar se o nome do usuario já existe-------------------------------
     const selectedUser = await DocumentUser.findOne({name: req.body.name});
     if (selectedUser){
-        let message = "o usuario já existe"
-        let status = 400;
-        return res.status(400).render('error.ejs',{message,status});//redirecionar para a pagina de error
+        return res.status(400).send("o usuario já existe");//[DEVE SER MELHORAR A ENTREGA DA MENSAGEM NO FRONT NAS PROXIMA ATUALIZAÇÃO]
     }
     //---------------------------------------------------------------------
 
@@ -25,9 +21,7 @@ const addUser = async (req, res) => {
         let doc =await documentUser.save();
         res.redirect ('/');
     } catch (error) {
-        let status = 400;
-        let message = error;
-        res.status(400).render('error.ejs', { message, status }); //redirecionar para a pagina de error
+        res.render({ error, body: req.body }); 
     }
 }
 
@@ -36,16 +30,14 @@ const loadUser = async (req, res) =>{
     let id = req.params.id;//pegar o id do usuario selecionado. Vindo por parâmetro
    
     try{
-        let doc = await DocumentUser.findById(id);
+        let doc = await DocumentUser.findById(id);//[findById(id)] é usada para recuperar o documento que corresponde ao 'id'. onde [documentUser] é o modelo do documento a ser selecionado
         //DADOS DO MENU
-        let name= doc.name; 
-        let docs = await NomeColecao.find({user:name});
+        let name= doc.name; //vai pegar apenas o nome do usuario que esta no documento
+        let docs = await NomeColecao.find({user:name});// lista com todos os documentos que o usuario possui o nome
     
-        res.render('listAll.ejs', {error: false , body:doc,name,docs})
+        res.render('listAll.ejs', {error: false , body:doc,name,docs})//responde com uma pagina que vai conter todo os dados do usuario selecionado pelo id
     }catch (error){
-        let message= error;
-        let status = 404;
-        res.status(404).render('error.ejs',{message,status});//redirecionar para a pagina de error
+        res.status(404).send(error); 
     }
 }
 
@@ -54,14 +46,12 @@ const editDado = async (req,res)=>{
     //chamar a validação dos dados-----------------
     const {error} = validateDados(req.body);
     if(error){
-        return res.status(400).render('add.ejs',{error});
-    }
+        return res.status(400).send(error.message);
+    }//--------------------------------------------
     //validar se o titulo do dado já existe---------------------------------
     const selectedTitle = await NomeColecao.findOne({title: req.body.title});
     if (selectedTitle){
-        let message = "O titulo já existe";
-        let status = 400;
-        return res.status(400).render('error.ejs',{message,status});//redirecionar para a pagina de error
+        return res.status(400).send("O titulo já existe");//[DEVE SER MELHORAR A ENTREGA DA MENSAGEM NO FRONT NAS PROXIMA ATUALIZAÇÃO]
     }
     //----------------------------------------------------------------------
     
@@ -89,15 +79,13 @@ const deleteDado= async ( req,res )=>{
     if (!id){
         id= req.body.id;
     }
-    //========================[OBS: CRIAR O CODIGO PARA MANDAR MENSAGEM PERGUNTANDO SE REALMENTE VAI QUERER APAGAR ESSE DOCUMENTO]===========================================================================
     try {     
         //deletar o documento que possui o id selecionado
        let deleta = await NomeColecao.findByIdAndDelete(id);
        res.redirect('/')
+        //[OBS: ALTERAR O CODIGO PARA ASSIM QUE DELETAR O DOCUMENTO SELECIONADO SERA REDIRECIONADO PARA A PAFINA DO USUARIO QUE FOI APAGADO O DOCUMENTO]
     } catch (error) {
-        let message = error;
-        let status = 404;
-        res.status(404).render('error.ejs', {message,status});//redirecionar para a pagina de error
+        res.status(404).send(error);
     }
 }
 

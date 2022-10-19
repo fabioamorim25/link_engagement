@@ -32,8 +32,12 @@
                     <% for(let i=0; i<users.length; i++){%>
                         <div class="btn btn-dark border-success mt-3 d-block" id='<%= users[i]._id%>'>
                             <!--ACESSAR A ROTA PARA VER A PAGINA DO USUARIO APARTIR DO ID DO USUARIO -->
-                            <a href="/listAll/<%=users[i]._id%>" class="text-capitalize text-decoration-none  text-success"><%=users[i].name%></a>
-                        </div>
+                            <a href="/listAll/<%=users[i]._id%>" class="text-capitalize text-decoration-none text-success "><%=users[i].name%></a>                     
+                        </div>    
+                            <!--DELETAR O USUARIO APARTIR DO ID -->                      
+                            <form method="POST" action="deleteUser/<%=users[i]._id%>?_method=DELETE">
+                               <button class="btn text-danger px-5" type="submit">Delete</button>
+                            </form>
                     <%}%>
                 </div>
             </div>

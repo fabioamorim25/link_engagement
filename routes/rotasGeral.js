@@ -30,6 +30,8 @@ router.get('/listAll/:id', featuresUser.loadUser);
 router.post('/edit/:id', express.urlencoded({extended: true}), featuresUser.editDado);
 //rota para deletar um documento do usuario 
 router.delete('/:id',express.urlencoded({extended: true}), featuresUser.deleteDado);
+//rota para deletar o usuario 
+router.delete('/deleteUser/:id',express.urlencoded({extended: true}), featuresUser.deleteUser);
 
 
 

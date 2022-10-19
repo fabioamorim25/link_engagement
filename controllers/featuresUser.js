@@ -100,10 +100,37 @@ const deleteDado= async ( req,res )=>{
         res.status(404).render('error.ejs', {message,status});//redirecionar para a pagina de error
     }
 }
+//FUNCIONALIDADE PARA APAGAR  O USUARIO E SEUS DOCUMENTOS
+const deleteUser= async ( req,res )=>{
+    //pegar o id do usuario
+    let id = req.params.id;
+    if (!id){
+        id= req.body.id;
+    }
+    //pegar o documento que possui o id do usuario e selecionar seu nome
+    let user = await DocumentUser.findById(id);
+    let name = user.name;
+    //------------------------------------------------------------------
+    //pegar todos os documentos que possui o nome do usuario
+    let docsUser = await NomeColecao.find({user:name});
+    //------------------------------------------------------------------
+
+  
+    //========================[OBS: CRIAR O CODIGO PARA MANDAR MENSAGEM PERGUNTANDO SE REALMENTE VAI QUERER APAGAR ESSE DOCUMENTO]===========================================================================
+    try {     
+       //deletar o usuario
+       let deltUser= await DocumentUser.findByIdAndDelete(id);
+       //deletar os documentos que o usuario possui
+       let deltDocs= await NomeColecao.findByIdAndDelete(docsUser);
+       res.redirect('/')
+    } catch (error) {
+        let message = error;
+        let status = 404;
+        res.status(404).render('error.ejs', {message,status});//redirecionar para a pagina de error
+     }
+}
 
 
 
 
-
-
-module.exports= {addUser, loadUser,editDado,deleteDado};//exportar a funcionalidade 
+module.exports= {addUser, loadUser,editDado,deleteDado,deleteUser};//exportar a funcionalidade 

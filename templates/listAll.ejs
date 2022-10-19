@@ -21,7 +21,7 @@
   <!--MOSTRA TODOS OS DOCUMENTOS QUE O USUARIO POSSUI -->
   <main class="d-flex flex-wrap">
     <% for(let i=0; i< docs.length; i++){%>
-        <div id="<%docs[i]._id%>" class="card border-success text-primary m-1" style="min-width: 20rem; background-color: rgba(26, 25, 25, 0.993);">
+        <div id="<%docs[i]._id%>" class="card border-success text-primary m-1" style="min-width: 20rem; background-color: rgba(25, 26, 26, 0.993);">
       <form method="POST" action="/<%=docs[i]._id%>?_method=DELETE">
             <div class="flex-column card-body">
                 <h2 class="card-title text-light fw-bold fst-italic text-center"><%=docs[i].title%></h2>

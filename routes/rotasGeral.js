@@ -26,8 +26,15 @@ router.get('/edit/:id', controllerReq.loadDados);
 router.post('/addUser', express.urlencoded({extended:true}), featuresUser.addUser);
 //rota para entra no menu do usuario apartir do id 
 router.get('/listAll/:id', featuresUser.loadUser);
+
 //rota para editar um documento apartir do usuario
 router.post('/edit/:id', express.urlencoded({extended: true}), featuresUser.editDado);
+
+//rota para entra na pagina de editar o nome do usuario
+router.get('/editUser/:name', featuresUser.loadEditUser);
+//rota para editar um documento apartir do usuario
+router.post('', express.urlencoded({extended: true}), featuresUser.editUserName);
+
 //rota para deletar um documento do usuario 
 router.delete('/:id',express.urlencoded({extended: true}), featuresUser.deleteDado);
 //rota para deletar o usuario 

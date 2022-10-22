@@ -1,3 +1,4 @@
+const { name } = require('ejs');
 const DocumentUser = require ('../modelGenerico/DocumentUser');
 const NomeColecao=require('../modelGenerico/NomeColecao') 
 const {validateUser,validateDados}= require ('./validate');//chamar a função de validação do nome do usuario
@@ -133,7 +134,7 @@ const loadEditUser = async (req, res) =>{
   
     try {
         let docUser = await DocumentUser.find({name});//procurar o documento com o nome do usuario
-        res.render('editUser.ejs', {error: false});
+        res.render('editUser.ejs', {error: false,name});
     } catch (error) {
         let message = error;
         let status = 404;
@@ -142,34 +143,31 @@ const loadEditUser = async (req, res) =>{
 }
 //FUNCIONALIDADE PARA EDITAR O NOME DO USUARIO E TODOS OS DOCUMENTO DO USUARIO
 const editUserName = async (req,res)=>{
-    //chamar a validação dos dados-----------------
-    const {error} = validateDados(req.body);
-    if(error){
-        return res.status(400).render('add.ejs',{error});
-    }
-    //validar se o titulo do dado já existe---------------------------------
-    const selectedTitle = await NomeColecao.findOne({title: req.body.title});
-    if (selectedTitle){
-        let message = "O titulo já existe";
+    let nameNew = req.body.name;//nome novo
+    let nameOriginal =req.params.name;//nome original
+    //validar se o nome já existe---------------------------------
+    const selectedName = await DocumentUser.findOne({name:req.body.name});//procurar o nome do usuario (nome novo)
+    if (selectedName){
+        let message = "O nome usado já existe";
         let status = 400;
         return res.status(400).render('error.ejs',{message,status});//redirecionar para a pagina de error
     }
     //----------------------------------------------------------------------
     
-    let documentoVazio ={};
-    documentoVazio.title = req.body.title;
-    documentoVazio.description = req.body.description;
-    documentoVazio.url = req.body.url;
     
-    let id =req.params.id;
-    if(!id){
-        id= req.body.id;
-    }
-    try{
-        let doc= await NomeColecao.updateOne({_id: id}, documentoVazio);
+    try {
+        //DOCUMENTO DO USUARIO
+        let renameUser = await DocumentUser.updateMany({ name: nameOriginal }, { $set: { name: nameNew } });
+        //DOCUMENTOS QUE O USUARIO POSSUI
+        //renomear o nome do usuario. Onde, sera selecionado todos os documentos que possui o nome original do usuario
+        // assim, sera possivel renomear o nome original para o novo nome em todos os documentos selecionados
+        let renameDocs = await NomeColecao.updateMany({ user: nameOriginal }, { $set: { user: nameNew } });
+        //{user:nameOriginal} seleciona os documentos que possui o nome original
+        //{$set:{user:nameNew} renomea a caracteristica [USER] com o nome novo
         res.redirect('/');
-    }catch (error){
-        res.render('edit.ejs', {error, body:req.body });
+
+    } catch (error) {
+        res.render('edit.ejs', { error, body: req.body });
     }
 }
 

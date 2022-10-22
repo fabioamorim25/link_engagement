@@ -33,7 +33,7 @@ router.post('/edit/:id', express.urlencoded({extended: true}), featuresUser.edit
 //rota para entra na pagina de editar o nome do usuario
 router.get('/editUser/:name', featuresUser.loadEditUser);
 //rota para editar um documento apartir do usuario
-router.post('', express.urlencoded({extended: true}), featuresUser.editUserName);
+router.post('/editName/:name', express.urlencoded({extended: true}), featuresUser.editUserName);
 
 //rota para deletar um documento do usuario 
 router.delete('/:id',express.urlencoded({extended: true}), featuresUser.deleteDado);

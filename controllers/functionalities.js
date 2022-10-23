@@ -1,14 +1,27 @@
 const NomeColecao= require('../modelGenerico/NomeColecao') 
 const {validateDadoUser}= require ('./validate');
 const DocumentUser = require ('../modelGenerico/DocumentUser'); //[OBS:SISTEMA DO USUARIO]
+const DocGeneral = require ('../modelGenerico/DocGeneral')
+
+
 
 //FUNCIONALIDADE PARA VER TODOS OS DOCUMENTOS 
 const todoDado= async (req,res)=>{
     try { 
-        let dados = await NomeColecao.find({});//pegar os documentos registrdos
         let users = await DocumentUser.find({});//ver os dados do usuario [OBS:SISTEMA DO USUARIO]
+    
+        //1° PEGAR OS TODOS OS DOCUMENTOS (selecionar apenas sua url)
+        let dados = await NomeColecao.find({},{url:1, _id:0});//passa todos os dados: {}, definir os dados do documento que sera mostrado: {url:1, _id:0} sera mostrado a URL apenas
         
-        res.render('all.ejs', {dados,users});//passar a lista de usuarios para a pagina all.ejs[OBS:SISTEMA DO USUARIO]
+        //2° FILTRA OS DADOS DOS DOCUMENTOS (retirar url igual)
+        // validar se existe url repetidas. Caso tenha sera retirado, deixando assim apenas as url diferentes
+        dados = dados.filter(function (a) {
+            return !this[JSON.stringify(a)] && (this[JSON.stringify(a)] = true);
+        }, Object.create(null))
+        
+     // 3° PASSAR AS URLs RESTANTES PARA O FRONT END (pagina principal)
+    // após verificar tudo sera enviado para o front end {dados} 
+      res.render('all.ejs', {dados,users});
     } catch (error) {
         let message = error;
         let status = 404;

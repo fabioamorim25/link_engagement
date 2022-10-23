@@ -1,4 +1,3 @@
-const { name } = require('ejs');
 const DocumentUser = require ('../modelGenerico/DocumentUser');
 const NomeColecao=require('../modelGenerico/NomeColecao') 
 const {validateUser,validateDados}= require ('./validate');//chamar a função de validação do nome do usuario

@@ -56,14 +56,13 @@
   <!------------------------------------------------------------------------------------------------------------------->
 <div class="container">
     <h3 class="mt-5 text-center fw-bold text-white" style="min-width: 9rem;">LISTA COM TODOS OS DADOS DO SISTEMA</h3>
-    <main class="d-flex flex-wrap">
+    <main class="d-flex flex-wrap">      
+        
         <% for(let i=0; i< dados.length; i++){%>
             <div class="card border-success m-1" style="min-width: 21rem; background-color: rgba(26, 25, 25, 0.993);"><%dados[i]._id%>
                 <div class="flex-column">
-                    <h3 class="card-title text-light fw-bold fst-italic text-center p-1"><%=dados[i].title%></h3>
-                    <div class="text-white text-capitalize card-text mx-3"><%=dados[i].description%></div>
                     <div class="text-white card-text mb-1 mx-3"><%=dados[i].url%></div>
-                    <div class="text-success card-footer border-success"> Clicks: <%=dados[i].click%></div>
+                    <div class="text-success card-footer border-success"> Clicks:<%=dados[i].click%></div>
                 </div>
             </div>
         <%}%>

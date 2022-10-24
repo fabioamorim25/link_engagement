@@ -1,27 +1,26 @@
 const NomeColecao= require('../modelGenerico/NomeColecao') 
 const {validateDadoUser}= require ('./validate');
-const DocumentUser = require ('../modelGenerico/DocumentUser'); //[OBS:SISTEMA DO USUARIO]
-const DocGeneral = require ('../modelGenerico/DocGeneral')
+const DocumentUser = require ('../modelGenerico/DocumentUser');
+
 
 
 
 //FUNCIONALIDADE PARA VER TODOS OS DOCUMENTOS 
 const todoDado= async (req,res)=>{
     try { 
-        let users = await DocumentUser.find({});//ver os dados do usuario [OBS:SISTEMA DO USUARIO]
-    
-        //1° PEGAR OS TODOS OS DOCUMENTOS (selecionar apenas sua url)
-        let dados = await NomeColecao.find({},{url:1, _id:0});//passa todos os dados: {}, definir os dados do documento que sera mostrado: {url:1, _id:0} sera mostrado a URL apenas
-        
-        //2° FILTRA OS DADOS DOS DOCUMENTOS (retirar url igual)
-        // validar se existe url repetidas. Caso tenha sera retirado, deixando assim apenas as url diferentes
+        let users = await DocumentUser.find({});
+        //PEGAR OS TODOS OS DOCUMENTOS (selecionar apenas sua url)
+        let dados = await NomeColecao.find({},{url:1, _id:0});
         dados = dados.filter(function (a) {
             return !this[JSON.stringify(a)] && (this[JSON.stringify(a)] = true);
         }, Object.create(null))
-        
-     // 3° PASSAR AS URLs RESTANTES PARA O FRONT END (pagina principal)
-    // após verificar tudo sera enviado para o front end {dados} 
-      res.render('all.ejs', {dados,users});
+
+
+        //1°: FUNCIONALIDADE ORDENAR O DADOS DO QUE TEM MAIS CLICKS PARA OS QUE TEM MENOS CLICKS [sort({click:-1})] E LIMITAR APENAS PARA OS 10 COLOCADOS [limit(10)]
+        let listOrderTitule = await NomeColecao.find().sort({click:-1}).limit(10);
+      
+        res.render('all.ejs', {dados,users,listOrderTitule});//2°: ENVIAR PARA O FRONT END A ORDEM DOS DOCUMENTOS
+
     } catch (error) {
         let message = error;
         let status = 404;
@@ -37,7 +36,7 @@ const redirect = async (req, res) => {
     } catch (error) {
         let message = error;
         let status = 404;
-        res.status(404).render('error.ejs', {message,status}); //redirecionar para a pagina de error
+        res.status(404).render('error.ejs', {message,status}); 
     }
 }
 //função responsavel por recarregar a pagina [edit.ejs]
@@ -49,7 +48,7 @@ const loadDados = async (req, res) => {
     } catch (error) {
         let message = error;
         let status = 404;
-        res.status(404).render('error.ejs',{message,status}); //redirecionar para a pagina de error 
+        res.status(404).render('error.ejs',{message,status}); 
     }
 }
 //FUNCIONALIDADE PARA ADICIONAR DOCUMENTOS 
@@ -64,17 +63,16 @@ const addDado = async (req, res) => {
     if (selectedDoc){
         let message = "O titulo do documento já existe";
         let status = 400;
-        return res.status(400).render('error.ejs',{message,status});//redirecionar para a pagina de error
+        return res.status(400).render('error.ejs',{message,status});
     }
     //-----------------------------------------------
     //validar se o usuario do documento existe---------
-    const validateUser = await DocumentUser.findOne({name: req.body.user});//pegar o nome do user recebido do front e colocar seu valor na chave name que corresponde a caracteristica do DocumentUser.js
-    if (!validateUser){//se não existir vai da erro
+    const validateUser = await DocumentUser.findOne({name: req.body.user});
+    if (!validateUser){
         let message = "O usuario digitado não existe. Deve ser criado o usuario antes";
         let status = 400;
-        return res.status(400).render('error.ejs',{message,status});//redirecionar para a pagina de error
+        return res.status(400).render('error.ejs',{message,status});
     }
-    //-----------------------------------------------
 
     let nomeColecao =new NomeColecao (req.body)
     try {

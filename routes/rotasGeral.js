@@ -2,9 +2,9 @@ const express= require('express');
 const router= express.Router();
 const methodOverride= require('method-override')
 const controllerReq=require('../controllers/functionalities')
-const featuresUser = require ('../controllers/featuresUser'); //importar o arquivo com as rotas do usuario
+const featuresUser = require ('../controllers/featuresUser'); 
 
-router.use(methodOverride('_method'));//o methodOverride foi selecionado para a rota de deletar dados do usuario 
+router.use(methodOverride('_method'));
 
 
 //ROTAS PARA AS FUNCIONALIDADES DAS AÇÕES DO SISTEMA__________________________________

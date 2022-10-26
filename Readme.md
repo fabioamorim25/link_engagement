@@ -47,7 +47,7 @@
 - [x] Visualizar documentos do usuario
 - [x] Redirecionar
 - [x] Contagem de clicks
-- [ ] Filtragem de dados dos usuarios
+- [x] Filtragem de dados dos usuarios
 
 ### Ilustração
 

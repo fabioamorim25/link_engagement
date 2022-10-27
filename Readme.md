@@ -24,7 +24,7 @@
     <a href ="#features">Features</a> -
     <a href ="#ilustração">Ilustração</a> - 
     <a href ="#pre-requisitos">Pre-requisitos</a> -
-    <a href ="#tecnologias">Tecnologias</a> -
+    <a href ="#🛠️tecnologias_framework">Tecnologias/framework</a> -
     <a href ="#autor">Autor</a>
   </p>
 <hr>
@@ -44,22 +44,22 @@
 - [x] Adicionar documentos e usuários
 - [x] Editar documentos e usuário
 - [x] Deletar documentos e usuário
-- [x] Visualizar documentos do usuario
+- [x] Visualizar documentos do usuário
 - [x] Redirecionar
 - [x] Contagem de clicks
-- [x] Filtragem de dados dos usuarios
+- [x] Filtragem dos documentos dos usuários
 
 ### Ilustração
 
 <h1 align= "center">
   <img title="web add user e docs" src ="./github/add_user_e_doc.gif"/>
-  <img style="width:15em" title="add usuário e documentos" src ="./github/crud.gif"/>
+  <img style="max-width:300px;" title="add usuário e documentos" src ="./github/crud.gif"/>
 </h1>
 
 ### Pre-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
-[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/).
+[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/) e o [Mongo db compass](https://www.mongodb.com/try/download/compass).
 Além disto é bom ter um editor para trabalhar com o código como [VScode](https://code.visualstudio.com/)
 
 ### ⚙️ Rodando o sistema
@@ -80,7 +80,7 @@ $ npm start
 #O servidor iniciará na porta:3000 - acesse <http://localhost:3000>
 ```
 
-### 🛠️ Tecnologias e framework
+### 🛠️Tecnologias_framework
 
 As seguintes ferramentas foram usadas na construção do projeto:
 

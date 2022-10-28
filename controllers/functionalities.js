@@ -1,7 +1,6 @@
-const NomeColecao= require('../modelGenerico/NomeColecao') 
+const Docs= require('../modelGenerico/Docs') 
 const {validateDadoUser}= require ('./validate');
-const DocumentUser = require ('../modelGenerico/DocumentUser'); //[OBS:SISTEMA DO USUARIO]
-const DocGeneral = require ('../modelGenerico/DocGeneral')
+const DocumentUser = require ('../modelGenerico/DocumentUser');
 
 
 
@@ -11,16 +10,14 @@ const todoDado= async (req,res)=>{
         let users = await DocumentUser.find({});//ver os dados do usuario [OBS:SISTEMA DO USUARIO]
     
         //PEGAR OS TODOS OS DOCUMENTOS (selecionar apenas sua url)
-        let dados = await NomeColecao.find({},{url:1, _id:0});
+        let dados = await Docs.find({},{url:1, _id:0});
         dados = dados.filter(function (a) {
             return !this[JSON.stringify(a)] && (this[JSON.stringify(a)] = true);
         }, Object.create(null))
 
-        //1°: FUNCIONALIDADE ORDENAR O DADOS DO QUE TEM MAIS CLICKS PARA OS QUE TEM MENOS CLICKS [sort({click:-1})]
-        let listOrderTitule = await NomeColecao.find().sort({click:-1}).limit(10);
-        
-
-      res.render('all.ejs', {dados,users,listOrderTitule});//2°: ENVIAR PARA O FRONT END A ORDEM DOS DOCUMENTOS
+        //FUNCIONALIDADE ORDENAR O DADOS DO QUE TEM MAIS CLICKS PARA OS QUE TEM MENOS CLICKS
+        let listOrderTitule = await Docs.find().sort({click:-1}).limit(10);
+        res.render('all.ejs', {dados,users,listOrderTitule});//ENVIAR PARA O FRONT END A ORDEM DOS DOCUMENTOS
 
     } catch (error) {
         let message = error;
@@ -32,7 +29,7 @@ const todoDado= async (req,res)=>{
 const redirect = async (req, res) => {
     let title = req.params.title;
     try {
-        let doc = await NomeColecao.findOneAndUpdate({ title }, { $inc:{ click:1 } });
+        let doc = await Docs.findOneAndUpdate({ title }, { $inc:{ click:1 } });
         res.redirect(doc.url)
     } catch (error) {
         let message = error;
@@ -44,7 +41,7 @@ const redirect = async (req, res) => {
 const loadDados = async (req, res) => {
     let id = req.params.id;
     try {
-        let doc = await NomeColecao.findById(id);
+        let doc = await Docs.findById(id);
         res.render('./edit.ejs', {error: false ,body: doc})
     } catch (error) {
         let message = error;
@@ -60,7 +57,7 @@ const addDado = async (req, res) => {
         return res.status(400).render('add.ejs',{error});
     }//--------------------------------------------
     //validar se o documento já existe---------
-    const selectedDoc = await NomeColecao.findOne({title: req.body.title});
+    const selectedDoc = await Docs.findOne({title: req.body.title});
     if (selectedDoc){
         let message = "O titulo do documento já existe";
         let status = 400;
@@ -68,17 +65,18 @@ const addDado = async (req, res) => {
     }
     //-----------------------------------------------
     //validar se o usuario do documento existe---------
-    const validateUser = await DocumentUser.findOne({name: req.body.user});//pegar o nome do user recebido do front e colocar seu valor na chave name que corresponde a caracteristica do DocumentUser.js
-    if (!validateUser){//se não existir vai da erro
+    //pegar o nome do user recebido do front e colocar seu valor na chave name que corresponde a caracteristica do DocumentUser.js
+    const validateUser = await DocumentUser.findOne({name: req.body.user});
+    if (!validateUser){
         let message = "O usuario digitado não existe. Deve ser criado o usuario antes";
         let status = 400;
         return res.status(400).render('error.ejs',{message,status});//redirecionar para a pagina de error
     }
     //-----------------------------------------------
 
-    let nomeColecao =new NomeColecao (req.body)
+    let docs =new Docs (req.body)
     try {
-        let doc =await nomeColecao.save()
+        let doc =await docs.save()
         res.redirect ('/');
         
     } catch (error) {
@@ -86,4 +84,4 @@ const addDado = async (req, res) => {
     }
 }
 
-module.exports={todoDado, redirect, loadDados, addDado};//exportar a funcionalidade 
+module.exports={todoDado, redirect, loadDados, addDado}; 

@@ -1,7 +1,7 @@
 const joi = require('@hapi/joi');
 
-//criar um documento generico com as caracterisicas que sera verificada se esta de acordo com as caracteristicas definidas
 
+//FUNCIONALIDADE PARA VERIFICAR OS DADOS DIGITADOS PARA A CRIAÇÃO DO DOCUMENTO 
 const validateDados = (data) => {
     const schema = joi.object({
         //Caracterisiticas dos dados
@@ -13,7 +13,7 @@ const validateDados = (data) => {
     //validar os dados recebidos
     return schema.validate(data);
 }
-//Funcionalidade para verificar os dados digitados para a criação do documento 
+//FUNCIONALIDADE PARA VERIFICAR OS DADOS DIGITADOS PARA A CRIAÇÃO DO DOCUMENTO 
 const validateDadoUser = (data) => {
     const schema = joi.object({
         //Caracterisiticas dos dados
@@ -37,5 +37,5 @@ const validateUser = (data) => {
 }
 
 
-//exportar as funçõe de validação
+
 module.exports = {validateDadoUser,validateDados,validateUser};

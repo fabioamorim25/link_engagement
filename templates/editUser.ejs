@@ -4,26 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>editar usuario</title>
+    <title>Editar usuário</title>
 </head>
-<body style="background-color: black;">
+<body style="background-color: #191A3F;">
     
     <!-- colocar aqui o tamplete do cabeçalho [navbar.ejs] -->
     <%- include('partials/navbar.ejs')%>
 
     
+    <div class="container pt-5">
     <h3 class="text-center fw-bold text-white mt-5">EDITAR O NOME DO USUÁRIO</h3>
 
-    <main class="mt-4">
+    <main class="mt-5 container pt-5">
         <div class="container w-75">
             <form class="d-flex flex-column" action="/editName/<%=name%>" method="post">
                 <input class="mb-2 mt-2 form-control" name="name" placeholder="Usuário" type="text">
-                <button class="btn mb-5" style="background-color: rgba(46, 252, 5, 0.648);">Editar</button>
+                <button class="btn mb-5 text-white" style="background-color: #FB183C;border-radius: 20px;">Editar</button>
             </form>
         </div>
     </main>
 
-
+    </div>
 
 
     <!-- colocar aqui o tamplete do rodapé [footer.ejs] -->

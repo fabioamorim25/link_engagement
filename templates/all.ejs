@@ -13,6 +13,10 @@
 </head>
 
 <style>
+    /* DAR ESTILO A FONTE */
+    *{
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
     /* DAR ESTILO AO SCROLL */
     *::-webkit-scrollbar {
         width: 5px;
@@ -25,40 +29,46 @@
     *::-webkit-scrollbar-thumb {
         background-color: #cfc9d4;
     }
+    /* ANIMAÇÃO DOS CARDS */
+    .card{
+        transition: .5s;
+    }
+    .card:hover{
+       transform: translateY(-10px); 
+    }
 </style>
 
-<body style="background-color: black;">
+<body style="background-color: #191A3F;">
     <!--ESTRUTURA NAVBAR COM OFFCANVAS------------------------------------------------------------------------------- -->
-    <header class="navbar navbar-dark" style="background-color: rgba(46, 252, 5, 0.648);">
+    <header class="navbar navbar-dark " style="background-color:#191c21;">
         <div class="navbar">
-            <button class="btn btn-dark navbar-toggler-icon mx-2" data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasScrolling"></button>
-            <div class="navbar-brand fw-bold text-dark">Link Engagement</div>
+            <button class="btn btn-dark navbar-toggler-icon mx-2" data-bs-toggle="offcanvas"data-bs-target="#offcanvasScrolling"></button>
+            <div class="navbar-brand fw-bold text-white">Link Engagement</div>
         </div>
 
-        <nav class="offcanvas offcanvas-start" id="offcanvasScrolling" style="background-color: rgba(0, 0, 0, 0.634);">
+        <nav class="offcanvas offcanvas-start" id="offcanvasScrolling" style="background-color: #151634;">
             <div class="offcanvas-header">
                 <h5 class="text-white">MENU DOS USUÁRIOS</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+                <button type="button" class="btn-close text-reset bg-danger" data-bs-dismiss="offcanvas"></button>
             </div>
             <div class="offcanvas-body">
-                <!--ADICIONAR NOVOS USUARIOS------------------------------------------------------------------------>
+                <!--ADICIONAR NOVOS USUÁRIOS------------------------------------------------------------------------>
                 <div class="container">
                     <form class="d-flex" action="/addUser" method="post">
-                        <input class="input-group-text flex-fill" name="name" placeholder="Adicionar novo usuario" />
-                        <button class="btn btn-success flex-fill">salvar</button>
+                        <input class="input-group-text flex-fill" name="name" placeholder="Adicionar novo usuário"/>
+                        <button class="btn text-white">salvar</button>
                     </form>
-                    <!--VER USUARIOS JÁ CADASTRADOS--------------------------------------->
+                    <!--VER USUÁRIOS JÁ CADASTRADOS--------------------------------------->
                     <% for(let i=0; i<users.length; i++){%>
                         <div class="d-flex">
-                            <!--BOTÃO PARA DELETAR O USUARIO APARTIR DO ID-->
+                            <!--BOTÃO PARA DELETAR O USUÁRIO APARTIR DO ID-->
                             <form method="POST" action="deleteUser/<%=users[i]._id%>?_method=DELETE">
-                                <button onclick="return confirm('Tem certeza que deseja excluir? todos os dados do usuario sera excluido');"
-                                class="btn-close mt-3" type="submit"><img style="height:20px;"src="https://img.icons8.com/color/48/000000/delete-forever.png"/></button>
+                                <button onclick="return confirm('Tem certeza que deseja excluir? Todos os dados do usuário sera excluído');"
+                                class="btn-close mt-4 bg-white m-1" type="submit" style="height: 1em;"></button>
                             </form>
-                            <div class="btn btn-dark border-success mt-3" style="width: 20rem;" id='<%= users[i]._id%>'>
-                                <!--ACESSAR A ROTA PARA VER A PAGINA DO USUARIO APARTIR DO ID DO USUARIO -->
-                                <a href="/listAll/<%=users[i]._id%>" class="text-decoration-none text-success"><%=users[i].name%></a>
+                            <div class="btn mt-3 p-2" style="width: 20rem; background-color: #FB183C;" id='<%= users[i]._id%>'>
+                                <!--ACESSAR A ROTA PARA VER A PAGINA DO USUÁRIO APARTIR DO ID DO USUÁRIO -->
+                                <a href="/listAll/<%=users[i]._id%>" class="fw-bold text-decoration-none text-white text-capitalize"><%=users[i].name%></a>
                             </div>
                         </div>
                     <%}%>
@@ -67,43 +77,43 @@
         </nav>
 
         <div class="nav">
-            <a class="nav-link m-1 text-dark" href="/add">Adicionar dados</a>
-            <a class="nav-link m-1 text-dark" href="/">Lista de dados</a>
+            <a class="nav-link m-1 text-white" href="/add">Adicionar dados</a>
+            <a class="nav-link m-1 text-white" href="/">Lista de dados</a>
         </div>
     </header>
     <!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
 
-    <!-- 3°: MOSTRA OS DADOS PELA ORDENAR DO QUE TEM MAIS CLICKS PARA OS QUE TEM MENOS CLICKS -->
+    <!--MOSTRA OS DADOS PELA ORDENAR DO QUE TEM MAIS CLICKS PARA OS QUE TEM MENOS CLICKS -->
     <main>
         <div class="container">
+            <h5 class="text-center fw-bold text-light pt-5 container">TOP 10 TÍTULOS EM DESTAQUE</h5>
             <!-- CODIGO DO BLOCO TOP 10 TITULOS EM DESTAQUES -->
-            <div class="container d-flex flex-wrap text-center mt-3 p-3"
-                style="background-color: #1b415168; border-radius: 20px;">
-                <h5 class="text-center fw-bold text-light pt-4 container">TOP 10 TITULOS EM DESTAQUE</h5>
+            <div class="container d-flex flex-wrap text-center p-3" style="border-radius: 25px; background-color:#191A3F;">
+                
                 <% for(let i=0; i< listOrderTitule.length; i++){%>
                     <div class="m-auto">
-                        <div class="card m-1" style="width: 11em; height: 14em;border-radius: 20px;"><%listOrderTitule[i]._id%><div>
-                            <h5 class="bg-success text-center text-light" style="border-radius: 360% ; width: 40px;height: 28px;"><%=i%>°</h5>
-                            <h5 class="text-dark text-center my-4"><%=listOrderTitule[i].title%></h5>
+                        <div class="card m-1" style="width: 11em; height: 12em;border-radius: 20px 30%;background-color:#8F93B3;"><%listOrderTitule[i]._id%><div>
+                            <h5 class="text-center text-white m-auto" style="background-color: #FB183C; border-radius: 20px; width: 5em;"><%=i%>°</h5>
+                            <h5 class="text-center my-4"><%=listOrderTitule[i].title%></h5>
                             <h6 class="mt-5 text-capitalize"><%=listOrderTitule[i].user%></h6>
-                            <h6 class="text-success"> Clicks:<%=listOrderTitule[i].click%></h5>
+                            <h6 class="text-white border-top "> clicks <br><%=listOrderTitule[i].click%></h5>
                         </div>
                         </div>
                     </div>
                 <%}%>
             </div>
 
-            <div class="container mt-2 p-2" style="background-color: #2F1C3F; border-radius: 20px;">
+            <div class="container mt-2 p-2" style="background-color: #151634; border-radius: 20px;">
 
             <div class="container d-flex p-2 ">
 
-                <h6 class="text-center m-auto p-3 font-monospace">LISTA<br>DE<br>LINKS</h6>
+                <h6 class="text-center fw-bold text-light m-auto p-3 font-monospace">LISTA<br>DE<br>LINKS</h6>
                 <!-- CODIGO DO BLOCO LINKS DIVULGADOS -->
                 <div class="d-flex overflow-auto">
                     <% for(let i=0; i< dados.length; i++){%>
                         <div class="m-auto">
                             <div class="card m-1"style="background-color: #FB183C;border-radius: 20px;"><%dados[i]._id%>
-                                <a href="<%=dados[i].url%>" class="text-decoration-none text-white p-3"><%=dados[i].url%></a>
+                                <a href="<%=dados[i].url%>" class="text-decoration-none  text-white p-3"><%=dados[i].url%></a>
                             </div>
                         </div>
                     <%}%>

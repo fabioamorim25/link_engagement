@@ -2,9 +2,9 @@ const express= require('express');
 const router= express.Router();
 const methodOverride= require('method-override')
 const functionalities=require('../controllers/functionalities')
-const featuresUser = require ('../controllers/featuresUser');
+const featuresUser = require ('../controllers/featuresUser'); //importar o arquivo com as rotas do usuario
 
-router.use(methodOverride('_method'));//o methodOverride foi selecionado para a rota de deletar dados do usuário 
+router.use(methodOverride('_method'));//o methodOverride foi selecionado para a rota de deletar dados do usuario 
 
 
 //ROTAS PARA AS FUNCIONALIDADES DAS AÇÕES DO SISTEMA__________________________________
@@ -20,24 +20,24 @@ router.get('/edit/:id', functionalities.loadDados);
 
 
 
-//ROTAS PARA AS FUNCIONALIDADES DO USUÁRIO____________________________________________
+//ROTAS PARA AS FUNCIONALIDADES DO USUARIO____________________________________________
 
-//rota para adicionar um novo usuário
+//rota para adicionar um novo usuario
 router.post('/addUser', express.urlencoded({extended:true}), featuresUser.addUser);
-//rota para entra no menu do usuário apartir do id 
+//rota para entra no menu do usuario apartir do id 
 router.get('/listAll/:id', featuresUser.loadUser);
 
-//rota para editar um documento apartir do usuário
+//rota para editar um documento apartir do usuario
 router.post('/edit/:id', express.urlencoded({extended: true}), featuresUser.editDado);
 
-//rota para entra na pagina de editar o nome do usuário
+//rota para entra na pagina de editar o nome do usuario
 router.get('/editUser/:name', featuresUser.loadEditUser);
-//rota para editar um documento apartir do usuário
+//rota para editar um documento apartir do usuario
 router.post('/editName/:name', express.urlencoded({extended: true}), featuresUser.editUserName);
 
-//rota para deletar um documento do usuário 
+//rota para deletar um documento do usuario 
 router.delete('/:id',express.urlencoded({extended: true}), featuresUser.deleteDado);
-//rota para deletar o usuário 
+//rota para deletar o usuario 
 router.delete('/deleteUser/:id',express.urlencoded({extended: true}), featuresUser.deleteUser);
 
 

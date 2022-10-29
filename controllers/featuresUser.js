@@ -1,17 +1,17 @@
 const DocumentUser = require ('../modelGenerico/DocumentUser');
 const Docs=require('../modelGenerico/Docs') 
-const {validateUser,validateDados}= require ('./validate');
+const {validateUser,validateDados}= require ('./validate');//chamar a função de validação do nome do usuario
 
-//FUNCIONALIDADE PARA ADICIONAR USUÁRIO 
+//FUNCIONALIDADE PARA ADICIONAR USUARIO 
 const addUser = async (req, res) => {
-    //validar os dado do input nome do novo usuário--
+    //validar os dado do input nome do novo usuario--
     const { error } = validateUser(req.body);
     if (error) {
         let message = error;
         let status = 400;
         return res.status(400).render('error.ejs',{message,status});//redirecionar para a pagina de error
     }   
-    //validar se o nome do usuário já existe-------------------------------
+    //validar se o nome do usuario já existe-------------------------------
     const selectedUser = await DocumentUser.findOne({name: req.body.name});
     if (selectedUser){
         let message = "o usuario já existe"
@@ -31,9 +31,9 @@ const addUser = async (req, res) => {
     }
 }
 
-//FUNCIONALIDADE PARA CARREGAR A PAGINA [listAll] DO USUÁRIO SELECIONADO
+//FUNCIONALIDADE PARA CARREGAR A PAGINA [listAll] DO USUARIO SELECIONADO
 const loadUser = async (req, res) =>{
-    let id = req.params.id;//pegar o id do usuário selecionado. Vindo por parâmetro
+    let id = req.params.id;//pegar o id do usuario selecionado. Vindo por parâmetro
      
     try{
         let doc = await DocumentUser.findById(id);
@@ -51,20 +51,19 @@ const loadUser = async (req, res) =>{
 
 //FUNCIONALIDADE PARA EDITAR DOCUMENTO DO USUARIO
 const editDado = async (req,res)=>{
-    
     //chamar a validação dos dados-----------------
     const {error} = validateDados(req.body);
     if(error){
         return res.status(400).render('add.ejs',{error});
     }
-    //validar se o titulo do dado já existe---------------------------
+    //validar se o titulo do dado já existe---------------------------------
     const selectedTitle = await Docs.findOne({title: req.body.title});
     if (selectedTitle){
         let message = "O titulo já existe";
         let status = 400;
         return res.status(400).render('error.ejs',{message,status});//redirecionar para a pagina de error
     }
-    //---------------------------------------------------------------
+    //----------------------------------------------------------------------
     
     let documentoVazio ={};
     documentoVazio.title = req.body.title;
@@ -92,7 +91,8 @@ const deleteDado= async ( req,res )=>{
     }
 
     try {     
-       let deleta = await Docs.findByIdAndDelete(id);//deletar o documento que possui o id selecionado
+        //deletar o documento que possui o id selecionado
+       let deleta = await Docs.findByIdAndDelete(id);
        res.redirect('/')
     } catch (error) {
         let message = error;
@@ -107,11 +107,11 @@ const deleteUser= async ( req,res )=>{
     if (!id){
         id= req.body.id;
     }
-    //pegar o documento que possui o id do usuário e selecionar seu nome
+    //pegar o documento que possui o id do usuario e selecionar seu nome
     let user = await DocumentUser.findById(id);
     let name = user.name;
     //------------------------------------------------------------------
-    //pegar todos os documentos que possui o nome do usuário
+    //pegar todos os documentos que possui o nome do usuario
     let docsUser = await Docs.find({user:name});
     //------------------------------------------------------------------
 
@@ -120,21 +120,19 @@ const deleteUser= async ( req,res )=>{
        let deltUser= await DocumentUser.findByIdAndDelete(id);
        //deletar os documentos que o usuario possui
        let deltDocs= await Docs.findByIdAndDelete(docsUser);
-       
        res.redirect('/')
     } catch (error) {
         let message = error;
         let status = 404;
-        
         res.status(404).render('error.ejs', {message,status});//redirecionar para a pagina de error
      }
 }
 //FUNCIONALIDADE PARA CARREGAR A PAGINA [editUser.ejs]
 const loadEditUser = async (req, res) =>{
-    let name = req.params.name;//pegar o nome do usuário
+    let name = req.params.name;//pegar o nome do usuario
   
     try {
-        let docUser = await DocumentUser.find({name});//procurar o documento com o nome do usuário
+        let docUser = await DocumentUser.find({name});//procurar o documento com o nome do usuario
         res.render('editUser.ejs', {error: false,name});
     } catch (error) {
         let message = error;
@@ -142,28 +140,29 @@ const loadEditUser = async (req, res) =>{
         res.status(404).render('error.ejs',{message,status}); //redirecionar para a pagina de error 
     }
 }
-//FUNCIONALIDADE PARA EDITAR O NOME DO USUÁRIO E TODOS OS DOCUMENTO DO USUÁRIO
+//FUNCIONALIDADE PARA EDITAR O NOME DO USUARIO E TODOS OS DOCUMENTO DO USUARIO
 const editUserName = async (req,res)=>{
     let nameNew = req.body.name;//nome novo
     let nameOriginal =req.params.name;//nome original
-    //validar se o nome já existe----------------------------------------
-    const selectedName = await DocumentUser.findOne({name:req.body.name});//procurar o nome do usuário (nome novo)
+    //validar se o nome já existe---------------------------------
+    const selectedName = await DocumentUser.findOne({name:req.body.name});//procurar o nome do usuario (nome novo)
     if (selectedName){
         let message = "O nome usado já existe";
         let status = 400;
         return res.status(400).render('error.ejs',{message,status});//redirecionar para a pagina de error
     }
-    //------------------------------------------------------------------
+    //----------------------------------------------------------------------
     
     
     try {
-        //DOCUMENTO DO USUÁRIO
+        //DOCUMENTO DO USUARIO
         let renameUser = await DocumentUser.updateMany({ name: nameOriginal }, { $set: { name: nameNew } });
-        //DOCUMENTOS QUE O USUÁRIO POSSUI
-        //renomear o nome do usuário. Onde, sera selecionado todos os documentos que possui o nome original do usuário
+        //DOCUMENTOS QUE O USUARIO POSSUI
+        //renomear o nome do usuario. Onde, sera selecionado todos os documentos que possui o nome original do usuario
         // assim, sera possivel renomear o nome original para o novo nome em todos os documentos selecionados
         let renameDocs = await Docs.updateMany({ user: nameOriginal }, { $set: { user: nameNew } });
-
+        //{user:nameOriginal} seleciona os documentos que possui o nome original
+        //{$set:{user:nameNew} renomea a caracteristica [USER] com o nome novo
         res.redirect('/');
 
     } catch (error) {
@@ -174,4 +173,4 @@ const editUserName = async (req,res)=>{
 
 
 
-module.exports= {addUser, loadUser,editDado,loadEditUser,editUserName,deleteDado,deleteUser};
+module.exports= {addUser, loadUser,editDado,loadEditUser,editUserName,deleteDado,deleteUser};//exportar a funcionalidade 

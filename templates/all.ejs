@@ -52,22 +52,22 @@
                 <button type="button" class="btn-close text-reset bg-danger" data-bs-dismiss="offcanvas"></button>
             </div>
             <div class="offcanvas-body">
-                <!--ADICIONAR NOVOS USUÁRIOS------------------------------------------------------------------------>
+                <!--ADICIONAR NOVOS USUARIOS------------------------------------------------------------------------>
                 <div class="container">
                     <form class="d-flex" action="/addUser" method="post">
-                        <input class="input-group-text flex-fill" name="name" placeholder="Adicionar novo usuário"/>
+                        <input class="input-group-text flex-fill" name="name" placeholder="Adicionar novo usuario"/>
                         <button class="btn text-white">salvar</button>
                     </form>
-                    <!--VER USUÁRIOS JÁ CADASTRADOS--------------------------------------->
+                    <!--VER USUARIOS JÁ CADASTRADOS--------------------------------------->
                     <% for(let i=0; i<users.length; i++){%>
                         <div class="d-flex">
-                            <!--BOTÃO PARA DELETAR O USUÁRIO APARTIR DO ID-->
+                            <!--BOTÃO PARA DELETAR O USUARIO APARTIR DO ID-->
                             <form method="POST" action="deleteUser/<%=users[i]._id%>?_method=DELETE">
-                                <button onclick="return confirm('Tem certeza que deseja excluir? Todos os dados do usuário sera excluído');"
+                                <button onclick="return confirm('Tem certeza que deseja excluir? todos os dados do usuario sera excluido');"
                                 class="btn-close mt-4 bg-white m-1" type="submit" style="height: 1em;"></button>
                             </form>
                             <div class="btn mt-3 p-2" style="width: 20rem; background-color: #FB183C;" id='<%= users[i]._id%>'>
-                                <!--ACESSAR A ROTA PARA VER A PAGINA DO USUÁRIO APARTIR DO ID DO USUÁRIO -->
+                                <!--ACESSAR A ROTA PARA VER A PAGINA DO USUARIO APARTIR DO ID DO USUARIO -->
                                 <a href="/listAll/<%=users[i]._id%>" class="fw-bold text-decoration-none text-white text-capitalize"><%=users[i].name%></a>
                             </div>
                         </div>
@@ -83,10 +83,10 @@
     </header>
     <!------------------------------------------------------------------------------------------------------------------------------------------------------------------>
 
-    <!--MOSTRA OS DADOS PELA ORDENAR DO QUE TEM MAIS CLICKS PARA OS QUE TEM MENOS CLICKS -->
+    <!-- 3°: MOSTRA OS DADOS PELA ORDENAR DO QUE TEM MAIS CLICKS PARA OS QUE TEM MENOS CLICKS -->
     <main>
         <div class="container">
-            <h5 class="text-center fw-bold text-light pt-5 container">TOP 10 TÍTULOS EM DESTAQUE</h5>
+            <h5 class="text-center fw-bold text-light pt-5 container">TOP 10 TITULOS EM DESTAQUE</h5>
             <!-- CODIGO DO BLOCO TOP 10 TITULOS EM DESTAQUES -->
             <div class="container d-flex flex-wrap text-center p-3" style="border-radius: 25px; background-color:#191A3F;">
                 

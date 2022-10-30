@@ -23,19 +23,13 @@
     <a href ="#desafios">Desafios</a> -
     <a href ="#features">Features</a> -
     <a href ="#ilustração">Ilustração</a> - 
-    <a href ="#pre-requisitos">Pre-requisitos</a> -
+    <a href ="#pré-requisitos">Pré-requisitos</a> -
     <a href ="#🛠️tecnologias_framework">Tecnologias/framework</a> -
     <a href ="#autor">Autor</a>
   </p>
 <hr>
 
 <br>
-
-<hr>
-<h4 align = "center">
- 👷‍♂️Projeto 🚧 Link Engagement em contrução 🚧 ...
-</h4>
-<hr>
 
 <br>
 
@@ -56,7 +50,7 @@
   <img style="max-width:300px;" title="add usuário e documentos" src ="./github/crud.gif"/>
 </h1>
 
-### Pre-requisitos
+### Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/) e o [Mongo db compass](https://www.mongodb.com/try/download/compass).

@@ -9,13 +9,13 @@ const path= require('path');
 
 
 //----------------------------------------------------------------------------------------------------
-mongoose.connect('mongodb://localhost/projetoTeste', {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect('mongodb://localhost/dbLinkEngagement', {useNewUrlParser: true, useUnifiedTopology: true})
 let db=mongoose.connection;
 //----------------------------------------------------------------------------------------------------
 
 
     
-//======================================
+//=========================================
 db.on("error", ()=>{
     console.log(error)
 })
@@ -24,10 +24,10 @@ db.once("open", ()=>{
 })
 //=========================================
 
-//=========================================
+//==================================================
 app.set("views", path.join(__dirname, "templates"));
 app.set('views engine', 'ejs'); 
-//=========================================
+//==================================================
 
 
 

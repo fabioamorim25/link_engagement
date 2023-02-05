@@ -8,21 +8,27 @@ const path= require('path');
 
 
 
-//----------------------------------------------------------------------------------------------------
-mongoose.connect('mongodb://localhost/dbLinkEngagement', {useNewUrlParser: true, useUnifiedTopology: true})
-let db=mongoose.connection;
-//----------------------------------------------------------------------------------------------------
+//-------------------------------------------------------
+mongoose.set('strictQuery', false);
+mongoose.connect('mongodb://127.0.0.1:27017/dbLinkEngagement',{
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}); 
+mongoose.Promise = global.Promise;
+//--------------------------------------------------------
 
 
     
-//=========================================
+
+//Verificação da conexão com o banco de dados
+let db=mongoose.connection;
 db.on("error", ()=>{
     console.log(error)
 })
 db.once("open", ()=>{
     console.log("banco de dados carregado")
 })
-//=========================================
+
 
 //==================================================
 app.set("views", path.join(__dirname, "templates"));

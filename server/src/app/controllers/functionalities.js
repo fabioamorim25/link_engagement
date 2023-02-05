@@ -1,6 +1,6 @@
-const Docs= require('../modelGenerico/Docs') 
+const Docs= require('../models/Docs') 
 const {validateDadoUser}= require ('./validate');
-const DocumentUser = require ('../modelGenerico/DocumentUser'); //[OBS:SISTEMA DO USUARIO]
+const DocumentUser = require ('../models/DocumentUser'); 
 
 
 
@@ -85,4 +85,4 @@ const addDado = async (req, res) => {
     }
 }
 
-module.exports={todoDado, redirect, loadDados, addDado};//exportar a funcionalidade 
+module.exports={todoDado, redirect, loadDados, addDado};

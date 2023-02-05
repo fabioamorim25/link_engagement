@@ -1,39 +1,42 @@
-const DocumentUser = require ('../modelGenerico/DocumentUser');
-const Docs=require('../modelGenerico/Docs') 
-const {validateUser,validateDados}= require ('./validate');//chamar a função de validação do nome do usuario
+const DocumentUser = require ('../models/DocumentUser');
+const Docs=require('../models/Docs') 
+const {validateUser,validateDados}= require ('./validate');
 
-//FUNCIONALIDADE PARA ADICIONAR USUARIO 
+//FUNCIONALIDADE PARA ADICIONAR USUÁRIO 
 const addUser = async (req, res) => {
-    //validar os dado do input nome do novo usuario--
+
     const { error } = validateUser(req.body);
+
     if (error) {
         let message = error;
         let status = 400;
-        return res.status(400).render('error.ejs',{message,status});//redirecionar para a pagina de error
-    }   
-    //validar se o nome do usuario já existe-------------------------------
-    const selectedUser = await DocumentUser.findOne({name: req.body.name});
-    if (selectedUser){
-        let message = "o usuario já existe"
-        let status = 400;
-        return res.status(400).render('error.ejs',{message,status});//redirecionar para a pagina de error
+        return res.status(400).render('error.ejs', { message, status });
     }
-    //---------------------------------------------------------------------
 
-    let documentUser =new DocumentUser (req.body)
+    //validar se o nome do usuario já existe
+    const selectedUser = await DocumentUser.findOne({ name: req.body.name });
+    if (selectedUser) {
+        let message = "O Usuario já existe"
+        let status = 400;
+        return res.status(400).render('error.ejs', { message, status });
+    }
+
+    let documentUser = new DocumentUser(req.body)
+
     try {
-        let doc =await documentUser.save();
-        res.redirect ('/');
+        let doc = await documentUser.save();
+        res.redirect('/');
+
     } catch (error) {
         let status = 400;
         let message = error;
-        res.status(400).render('error.ejs', { message, status }); //redirecionar para a pagina de error
+        res.status(400).render('error.ejs', { message, status });
     }
 }
 
-//FUNCIONALIDADE PARA CARREGAR A PAGINA [listAll] DO USUARIO SELECIONADO
+//FUNCIONALIDADE PARA CARREGAR A PAGINA [listAll] DO USUÁRIO SELECIONADO
 const loadUser = async (req, res) =>{
-    let id = req.params.id;//pegar o id do usuario selecionado. Vindo por parâmetro
+    let id = req.params.id;
      
     try{
         let doc = await DocumentUser.findById(id);
@@ -45,7 +48,7 @@ const loadUser = async (req, res) =>{
     }catch (error){
         let message= error;
         let status = 404;
-        res.status(404).render('error.ejs',{message,status});//redirecionar para a pagina de error
+        res.status(404).render('error.ejs',{message,status});
     }
 }
 
@@ -173,4 +176,4 @@ const editUserName = async (req,res)=>{
 
 
 
-module.exports= {addUser, loadUser,editDado,loadEditUser,editUserName,deleteDado,deleteUser};//exportar a funcionalidade 
+module.exports= {addUser, loadUser,editDado,loadEditUser,editUserName,deleteDado,deleteUser}; 

@@ -1,5 +1,9 @@
 # Link Engagement
 
+<div align= "center">
+  <img title="logo" src ="./github/logo.png"/>
+</div>
+
 ### Sobre
 
 <p align="center"> O sistema tem o intuito de saber o desempenho e engajamento de um site ou sistema criado. Um exemplo de sua aplicação seria: saber quantos de tráfego um influenciador pago para divulgar um site, conseguiu de acesso para uma página</p>
@@ -12,7 +16,8 @@
 
 - Também foi utilizado o Node.js para a criação do back end, usado o EXPRESS para a cria uma API. Que irá entregar os templetes com os dados dinâmicos para o usuário. Também foi criado rotas para erros caso algum dado tenha sido preenchido errado ou que já exista
 
-- Para a estilização dos templetes foi utilizado o BOOTSTRAP com alguns comandos do CSS 
+- Para a estilização dos templetes foi utilizado o BOOTSTRAP com alguns comandos do CSS
+
 </div>
 
 <br>
@@ -22,7 +27,7 @@
     <a href ="#sobre">Sobre</a> -
     <a href ="#desafios">Desafios</a> -
     <a href ="#features">Features</a> -
-    <a href ="#ilustração">Ilustração</a> - 
+    <a href ="#ilustração">Ilustração</a> -
     <a href ="#pré-requisitos">Pré-requisitos</a> -
     <a href ="#🛠️tecnologias_framework">Tecnologias/framework</a> -
     <a href ="#autor">Autor</a>
@@ -33,7 +38,7 @@
 
 <br>
 
-### Features 
+### Features
 
 - [x] Adicionar documentos e usuários
 - [x] Editar documentos e usuário
@@ -79,17 +84,18 @@ $ npm start
 As seguintes ferramentas foram usadas na construção do projeto:
 
 #### Front end
+
 - HTML / CSS / JAVASCRIPT
 - [Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)
 - [EJS](https://ejs.co/#install)
 
 #### Back end
+
 - [Node.js](https://nodejs.org/en/)
 - [Express js](https://expressjs.com/pt-br/)
 - [Mongo db](https://www.mongodb.com/pt-br/what-is-mongodb)
 - [mongoose](https://mongoosejs.com/)
 - [@hapi/joi](https://hapi.dev/tutorials/validation/?lang=en_US)
-
 
 ### Autor
 
